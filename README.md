@@ -74,5 +74,8 @@ Point your own domain at it whenever you buy one.
 - [ ] Replace the placeholder stats (40+ clients, 75+ projects) with your real numbers
 - [ ] Add 3–5 real projects, even personal ones
 - [ ] Set the WhatsApp number in `wa.me/91XXXXXXXXXX` format
-- [ ] Add a favicon (`<link rel="icon" href="assets/favicon.png">` in `<head>`)
 - [ ] Add an OG preview image for WhatsApp/LinkedIn shares
+
+The favicon is an inline SVG data URI in `<head>` — an "M" monogram in the accent
+colour. Change the letter path or swap in `<link rel="icon" href="assets/favicon.png">`
+if you'd rather use an image.
