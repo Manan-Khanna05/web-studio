@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MANAN — Web Design + Development Studio</title>
+<meta name="description" content="Independent web design and development studio. Custom websites, landing pages and web apps built to convert. Available for freelance projects worldwide." />
+<meta name="theme-color" content="#000000" />
+
+<!-- Open Graph / social preview -->
+<meta property="og:title" content="MANAN — Web Design + Development Studio" />
+<meta property="og:description" content="Custom websites, landing pages and web apps built to convert. Available for freelance projects worldwide." />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ══════════════ PRELOADER ══════════════ -->
+<div class="preloader" id="preloader">
+  <div class="preloader__inner">
+    <span class="preloader__label">LOADING EXPERIENCE</span>
+    <span class="preloader__count" id="preCount">0</span>
+  </div>
+  <div class="preloader__bar"><i id="preBar"></i></div>
+</div>
+
+<!-- ══════════════ CUSTOM CURSOR ══════════════ -->
+<div class="cursor" id="cursor"><span id="cursorLabel"></span></div>
+
+<!-- ══════════════ NAV ══════════════ -->
+<header class="nav" id="nav">
+  <div class="nav__left">
+    <a href="#home" class="brand" data-cursor="home">MANAN<span>®</span></a>
+  </div>
+  <div class="nav__mid">
+    <span class="mono">LOCAL/</span>
+    <span class="mono" id="clock">00:00:00</span>
+  </div>
+  <div class="nav__right">
+    <a href="#contact" class="nav__cta mono">CONTACT</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <span class="mono menu-btn__txt">MENU</span>
+      <span class="menu-btn__bars"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+
+<!-- ══════════════ FULLSCREEN MENU ══════════════ -->
+<div class="menu" id="menu">
+  <nav class="menu__list">
+    <a href="#home"     class="menu__link"><span class="mono">01</span> HOME</a>
+    <a href="#approach" class="menu__link"><span class="mono">02</span> APPROACH</a>
+    <a href="#work"     class="menu__link"><span class="mono">03</span> WORK</a>
+    <a href="#services" class="menu__link"><span class="mono">04</span> SERVICES</a>
+    <a href="#pricing"  class="menu__link"><span class="mono">05</span> PRICING</a>
+    <a href="#contact"  class="menu__link"><span class="mono">06</span> CONTACT</a>
+  </nav>
+  <div class="menu__foot">
+    <div>
+      <p class="mono dim">GET IN TOUCH</p>
+      <a href="mailto:itsmanan.dev@gmail.com" class="menu__mail">itsmanan.dev@gmail.com</a>
+    </div>
+    <div class="menu__socials">
+      <a href="#" target="_blank" rel="noopener">INSTAGRAM</a>
+      <a href="#" target="_blank" rel="noopener">LINKEDIN</a>
+      <a href="#" target="_blank" rel="noopener">GITHUB</a>
+      <a href="#" target="_blank" rel="noopener">DRIBBBLE</a>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero" id="home">
+  <div class="hero__grain"></div>
+  <div class="hero__glow"></div>
+
+  <div class="hero__meta">
+    <div class="hero__meta-item">
+      <span class="mono dim">BASED IN</span>
+      <span class="mono">INDIA — WORKING WORLDWIDE</span>
+    </div>
+    <div class="hero__meta-item hero__meta-item--right">
+      <span class="status"><i></i>AVAILABLE FOR PROJECTS</span>
+      <span class="mono dim">2026 SLOTS OPEN</span>
+    </div>
+  </div>
+
+  <h1 class="hero__title">
+    <span class="line"><span class="line__in">WEB DESIGN</span></span>
+    <span class="line"><span class="line__in">+ DEVELOPMENT</span></span>
+    <span class="line line--out"><span class="line__in">YOUR&nbsp; IDEA <em>BUILT</em> RIGHT</span></span>
+  </h1>
+
+  <div class="hero__bottom">
+    <p class="hero__blurb reveal">
+      I design and build fast, modern websites that make small brands look
+      expensive — and turn visitors into paying customers.
+    </p>
+    <a href="#contact" class="btn btn--big" data-cursor="let's talk">
+      <span>START A PROJECT</span>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5H8M19 5v11" stroke="currentColor" stroke-width="1.6"/></svg>
+    </a>
+  </div>
+
+  <div class="scroll-hint mono">SCROLL <i></i></div>
+</section>
+
+<!-- ══════════════ MARQUEE ══════════════ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>LANDING PAGES ✳ PORTFOLIO SITES ✳ E‑COMMERCE ✳ WEB APPS ✳ UI/UX DESIGN ✳ SEO &amp; SPEED ✳ MAINTENANCE ✳</span>
+    <span>LANDING PAGES ✳ PORTFOLIO SITES ✳ E‑COMMERCE ✳ WEB APPS ✳ UI/UX DESIGN ✳ SEO &amp; SPEED ✳ MAINTENANCE ✳</span>
+  </div>
+</div>
+
+<!-- ══════════════ APPROACH ══════════════ -->
+<section class="section approach" id="approach">
+  <div class="sec-head">
+    <span class="mono dim">//APPROACH</span>
+    <span class="mono dim">THREE PHASES</span>
+  </div>
+
+  <p class="lead reveal">
+    Every project runs on the same simple system — so you always know
+    <em>what's happening, what it costs and when it ships.</em>
+  </p>
+
+  <div class="phases">
+    <article class="phase reveal" data-cursor="01">
+      <span class="phase__num mono">01</span>
+      <h3>DISCOVER</h3>
+      <p>We talk about your business, your customers and what the site actually needs to do. You get a clear scope, timeline and fixed price before anything starts.</p>
+      <ul class="phase__tags"><li>STRATEGY CALL</li><li>SCOPE</li><li>FIXED QUOTE</li></ul>
+    </article>
+    <article class="phase reveal" data-cursor="02">
+      <span class="phase__num mono">02</span>
+      <h3>DESIGN</h3>
+      <p>A custom layout built around your brand — not a recycled template. You review it live, comment directly on the design, and we refine until it feels right.</p>
+      <ul class="phase__tags"><li>WIREFRAME</li><li>UI DESIGN</li><li>2 REVISIONS</li></ul>
+    </article>
+    <article class="phase reveal" data-cursor="03">
+      <span class="phase__num mono">03</span>
+      <h3>DEVELOP</h3>
+      <p>Hand-coded, lightning fast, mobile-perfect and SEO ready. I deploy it, connect your domain, and hand over everything you need to run it yourself.</p>
+      <ul class="phase__tags"><li>RESPONSIVE</li><li>SEO SETUP</li><li>LAUNCH</li></ul>
+    </article>
+  </div>
+</section>
+
+<!-- ══════════════ WORK ══════════════ -->
+<section class="section work" id="work">
+  <div class="sec-head">
+    <span class="mono dim">//PORTFOLIO</span>
+    <span class="mono dim">SELECTED 2024 — 2026</span>
+  </div>
+  <h2 class="sec-title reveal">RECENT<br>PROJECTS</h2>
+
+  <div class="projects" id="projects">
+    <a href="#contact" class="project reveal" data-img="1">
+      <span class="project__idx mono">01</span>
+      <span class="project__name">Aurora Studio</span>
+      <span class="project__tag mono">BRAND SITE / FRAMER</span>
+      <span class="project__arrow">↗</span>
+    </a>
+    <a href="#contact" class="project reveal" data-img="2">
+      <span class="project__idx mono">02</span>
+      <span class="project__name">Northline Coffee</span>
+      <span class="project__tag mono">E‑COMMERCE / SHOPIFY</span>
+      <span class="project__arrow">↗</span>
+    </a>
+    <a href="#contact" class="project reveal" data-img="3">
+      <span class="project__idx mono">03</span>
+      <span class="project__name">Vault Fitness</span>
+      <span class="project__tag mono">LANDING PAGE / NEXT.JS</span>
+      <span class="project__arrow">↗</span>
+    </a>
+    <a href="#contact" class="project reveal" data-img="4">
+      <span class="project__idx mono">04</span>
+      <span class="project__name">Mono Ledger</span>
+      <span class="project__tag mono">WEB APP / REACT</span>
+      <span class="project__arrow">↗</span>
+    </a>
+    <a href="#contact" class="project reveal" data-img="5">
+      <span class="project__idx mono">05</span>
+      <span class="project__name">Cielo Interiors</span>
+      <span class="project__tag mono">PORTFOLIO / WORDPRESS</span>
+      <span class="project__arrow">↗</span>
+    </a>
+  </div>
+
+  <!-- floating hover preview -->
+  <div class="proj-preview" id="projPreview"><div class="proj-preview__inner"></div></div>
+</section>
+
+<!-- ══════════════ ABOUT ══════════════ -->
+<section class="section about" id="about">
+  <div class="sec-head">
+    <span class="mono dim">//WHO I AM</span>
+    <span class="mono dim">INDEPENDENT SINCE 2022</span>
+  </div>
+
+  <div class="about__grid">
+    <h2 class="about__title reveal">MORE ABOUT<br>THE STUDIO</h2>
+    <div class="about__body">
+      <p class="reveal"><strong>MANAN IS A ONE-PERSON WEB STUDIO BUILT AROUND CLARITY, SPEED AND DESIGN THAT ACTUALLY SELLS.</strong></p>
+      <p class="reveal">No agency overhead, no account managers, no endless email chains. You talk directly to the person designing and coding your site — which means faster decisions, sharper work and a price that makes sense for a growing business.</p>
+      <p class="reveal">From a single high-converting landing page to a full custom web app, everything is hand-built, tested on real devices and handed over with documentation you can actually use.</p>
+      <a href="#contact" class="btn reveal" data-cursor="say hi"><span>WORK WITH ME</span><svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5H8M19 5v11" stroke="currentColor" stroke-width="1.6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ SERVICES ══════════════ -->
+<section class="section services" id="services">
+  <div class="sec-head">
+    <span class="mono dim">//SERVICES</span>
+    <span class="mono dim">FAST DELIVERY</span>
+  </div>
+  <h2 class="sec-title reveal">WHAT I<br>DO</h2>
+  <p class="lead lead--sm reveal">Services crafted to make your brand look established, load instantly and convert better than the competition.</p>
+
+  <div class="services__list">
+    <article class="service reveal">
+      <span class="service__num mono">S/01</span>
+      <h3>Website Design &amp; Development</h3>
+      <p>Custom marketing sites, portfolios and business websites — designed, coded and deployed end to end.</p>
+      <span class="service__meta mono">FIGMA · HTML/CSS · REACT · NEXT.JS</span>
+    </article>
+    <article class="service reveal">
+      <span class="service__num mono">S/02</span>
+      <h3>Landing Pages That Convert</h3>
+      <p>High-impact single pages for launches, ads and campaigns — written and structured to drive one clear action.</p>
+      <span class="service__meta mono">COPY STRUCTURE · CRO · A/B READY</span>
+    </article>
+    <article class="service reveal">
+      <span class="service__num mono">S/03</span>
+      <h3>E‑Commerce Stores</h3>
+      <p>Storefronts that make products look premium, with painless checkout, payments and inventory built in.</p>
+      <span class="service__meta mono">SHOPIFY · WOOCOMMERCE · STRIPE</span>
+    </article>
+    <article class="service reveal">
+      <span class="service__num mono">S/04</span>
+      <h3>UI/UX &amp; Brand Identity</h3>
+      <p>Interfaces, design systems and visual identity that keep every touchpoint of your brand consistent.</p>
+      <span class="service__meta mono">DESIGN SYSTEMS · LOGO · GUIDELINES</span>
+    </article>
+    <article class="service reveal">
+      <span class="service__num mono">S/05</span>
+      <h3>Speed, SEO &amp; Care Plans</h3>
+      <p>Core Web Vitals tuning, technical SEO and monthly maintenance so your site keeps earning after launch.</p>
+      <span class="service__meta mono">LIGHTHOUSE 95+ · SCHEMA · BACKUPS</span>
+    </article>
+  </div>
+</section>
+
+<!-- ══════════════ STATEMENT ══════════════ -->
+<section class="statement">
+  <div class="sec-head">
+    <span class="mono dim">//VOICE</span>
+    <span class="mono dim">SINCE 2022</span>
+  </div>
+  <p class="statement__text reveal">
+    AN INDEPENDENT DESIGNER &amp; DEVELOPER TURNING IDEAS INTO WEBSITES THAT
+    <em>LOOK EXPENSIVE, LOAD FAST AND BRING REAL BUSINESS.</em>
+  </p>
+</section>
+
+<!-- ══════════════ STATS ══════════════ -->
+<section class="section stats" id="stats">
+  <div class="sec-head">
+    <span class="mono dim">//STATS</span>
+    <span class="mono dim">FUN FACTS</span>
+  </div>
+  <div class="stats__grid">
+    <div class="stat reveal"><span class="stat__num" data-count="40">0</span><span class="stat__plus">+</span><p class="mono">CLIENTS SERVED</p></div>
+    <div class="stat reveal"><span class="stat__num" data-count="4">0</span><span class="stat__plus">+</span><p class="mono">YEARS EXPERIENCE</p></div>
+    <div class="stat reveal"><span class="stat__num" data-count="75">0</span><span class="stat__plus">+</span><p class="mono">PROJECTS SHIPPED</p></div>
+    <div class="stat reveal"><span class="stat__num" data-count="7">0</span><span class="stat__plus">days</span><p class="mono">AVG. DELIVERY</p></div>
+  </div>
+</section>
+
+<!-- ══════════════ PRICING ══════════════ -->
+<section class="section pricing" id="pricing">
+  <div class="sec-head">
+    <span class="mono dim">//PRICING</span>
+    <span class="mono dim">TRANSPARENT · FIXED</span>
+  </div>
+  <h2 class="sec-title reveal">PICK YOUR<br>PACKAGE</h2>
+  <p class="lead lead--sm reveal">No hourly surprises. Every package is a fixed price agreed before work starts. Need something different? Custom quotes are always welcome.</p>
+
+  <div class="plans">
+
+    <article class="plan reveal">
+      <div class="plan__top">
+        <span class="plan__price">$249</span>
+        <h3>STARTER LANDING</h3>
+        <p>A single high-converting page for a launch, service or campaign.</p>
+      </div>
+      <span class="mono dim plan__inc">What's included</span>
+      <ul>
+        <li>1 CUSTOM DESIGNED PAGE</li>
+        <li>FULLY RESPONSIVE</li>
+        <li>CONTACT FORM + WHATSAPP</li>
+        <li>BASIC SEO SETUP</li>
+        <li>FREE DOMAIN CONNECTION</li>
+        <li>1 ROUND OF REVISIONS</li>
+        <li>3–5 DAY DELIVERY</li>
+      </ul>
+      <a href="#contact" class="plan__btn">CHOOSE PLAN</a>
+    </article>
+
+    <article class="plan plan--pro reveal">
+      <span class="plan__badge mono">MOST POPULAR</span>
+      <div class="plan__top">
+        <span class="plan__price">$599</span>
+        <h3>BUSINESS WEBSITE</h3>
+        <p>The complete multi-page site most small businesses actually need.</p>
+      </div>
+      <span class="mono dim plan__inc">What's included</span>
+      <ul>
+        <li>UP TO 6 CUSTOM PAGES</li>
+        <li>CUSTOM UI DESIGN IN FIGMA</li>
+        <li>CMS / EASY SELF EDITING</li>
+        <li>BLOG OR GALLERY MODULE</li>
+        <li>ADVANCED SEO + ANALYTICS</li>
+        <li>SPEED OPTIMISED (95+ SCORE)</li>
+        <li>2 ROUNDS OF REVISIONS</li>
+        <li>7–10 DAY DELIVERY</li>
+        <li>30 DAYS FREE SUPPORT</li>
+      </ul>
+      <a href="#contact" class="plan__btn">CHOOSE PLAN</a>
+    </article>
+
+    <article class="plan reveal">
+      <div class="plan__top">
+        <span class="plan__price">$1199</span>
+        <h3>E‑COMMERCE / APP</h3>
+        <p>For stores and product teams that need a real system behind the design.</p>
+      </div>
+      <span class="mono dim plan__inc">What's included</span>
+      <ul>
+        <li>EVERYTHING IN BUSINESS</li>
+        <li>STORE OR WEB APP BUILD</li>
+        <li>PAYMENT GATEWAY SETUP</li>
+        <li>PRODUCT / DATA MANAGEMENT</li>
+        <li>USER ACCOUNTS &amp; DASHBOARD</li>
+        <li>UNLIMITED REVISIONS (SCOPED)</li>
+        <li>2–4 WEEK DELIVERY</li>
+        <li>90 DAYS FREE SUPPORT</li>
+      </ul>
+      <a href="#contact" class="plan__btn">CHOOSE PLAN</a>
+    </article>
+
+    <article class="plan reveal">
+      <div class="plan__top">
+        <span class="plan__price">$149</span>
+        <h3>REDESIGN REFRESH</h3>
+        <p>Already have a site that looks dated? Same content, brand new face.</p>
+      </div>
+      <span class="mono dim plan__inc">What's included</span>
+      <ul>
+        <li>FULL VISUAL REDESIGN</li>
+        <li>MOBILE FIXES</li>
+        <li>SPEED CLEAN-UP</li>
+        <li>NEW HERO + CTA STRUCTURE</li>
+        <li>3–5 DAY DELIVERY</li>
+      </ul>
+      <a href="#contact" class="plan__btn">CHOOSE PLAN</a>
+    </article>
+
+    <article class="plan reveal">
+      <div class="plan__top">
+        <span class="plan__price">$99<span class="plan__per">/mo</span></span>
+        <h3>CARE PLAN</h3>
+        <p>Keep your site fast, updated and backed up while you run the business.</p>
+      </div>
+      <span class="mono dim plan__inc">What's included</span>
+      <ul>
+        <li>HOSTING &amp; UPTIME MONITORING</li>
+        <li>WEEKLY BACKUPS</li>
+        <li>SECURITY &amp; PLUGIN UPDATES</li>
+        <li>2 HOURS OF EDITS / MONTH</li>
+        <li>MONTHLY PERFORMANCE REPORT</li>
+        <li>PRIORITY RESPONSE</li>
+      </ul>
+      <a href="#contact" class="plan__btn">CHOOSE PLAN</a>
+    </article>
+
+    <article class="plan plan--custom reveal">
+      <div class="plan__top">
+        <span class="plan__price">LET'S<br>TALK</span>
+        <h3>CUSTOM PROJECT</h3>
+        <p>Something bigger, weirder or more ambitious? Tell me about it.</p>
+      </div>
+      <span class="mono dim plan__inc">Good for</span>
+      <ul>
+        <li>SAAS PRODUCTS</li>
+        <li>DASHBOARDS &amp; PORTALS</li>
+        <li>API INTEGRATIONS</li>
+        <li>LONG TERM RETAINERS</li>
+        <li>WHITE LABEL FOR AGENCIES</li>
+      </ul>
+      <a href="#contact" class="plan__btn">GET A QUOTE</a>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════ PROCESS / FAQ ══════════════ -->
+<section class="section faq" id="faq">
+  <div class="sec-head">
+    <span class="mono dim">//FAQ</span>
+    <span class="mono dim">BEFORE YOU ASK</span>
+  </div>
+  <h2 class="sec-title reveal">GOOD TO<br>KNOW</h2>
+
+  <div class="faq__list">
+    <details class="faq__item reveal">
+      <summary>How long does a project take?<i></i></summary>
+      <p>A landing page usually ships in 3–5 days, a full business website in 7–10 days, and larger stores or apps in 2–4 weeks. You get a firm date in writing before we start.</p>
+    </details>
+    <details class="faq__item reveal">
+      <summary>How do payments work?<i></i></summary>
+      <p>50% to book your slot and start work, 50% before launch. For monthly care plans it's billed at the start of each month. Bank transfer, UPI, PayPal or Stripe — whatever's easiest for you.</p>
+    </details>
+    <details class="faq__item reveal">
+      <summary>Do I need to provide content and images?<i></i></summary>
+      <p>Ideally yes — you know your business best. But if you're stuck, I'll help structure the copy and source premium stock imagery so nothing holds up the launch.</p>
+    </details>
+    <details class="faq__item reveal">
+      <summary>What if I don't like the design?<i></i></summary>
+      <p>You see the design before a single line of code is written, and every package includes revision rounds. Nothing gets built until you're genuinely happy with how it looks.</p>
+    </details>
+    <details class="faq__item reveal">
+      <summary>Will I be able to update it myself?<i></i></summary>
+      <p>Yes. Business packages ship with an easy editor for text and images, plus a short walkthrough video recorded for your exact site.</p>
+    </details>
+    <details class="faq__item reveal">
+      <summary>Do you work with clients outside India?<i></i></summary>
+      <p>All the time. Most work happens over email and scheduled calls, and I keep flexible hours to overlap with US, UK and Gulf time zones.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<section class="section contact" id="contact">
+  <div class="sec-head">
+    <span class="mono dim">//GET IN TOUCH</span>
+    <span class="mono dim">REPLY WITHIN 24H</span>
+  </div>
+
+  <h2 class="contact__title reveal">LET'S WORK<br>TOGETHER</h2>
+
+  <div class="contact__grid">
+    <form class="form" id="contactForm" novalidate>
+      <div class="field">
+        <label for="name" class="mono">01 / YOUR NAME</label>
+        <input type="text" id="name" name="name" placeholder="Jane Doe" required />
+      </div>
+      <div class="field">
+        <label for="email" class="mono">02 / EMAIL</label>
+        <input type="email" id="email" name="email" placeholder="you@company.com" required />
+      </div>
+      <div class="field">
+        <label for="budget" class="mono">03 / BUDGET</label>
+        <select id="budget" name="budget">
+          <option>Under $250</option>
+          <option selected>$250 – $600</option>
+          <option>$600 – $1,200</option>
+          <option>$1,200+</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div class="field field--full">
+        <label for="message" class="mono">04 / ABOUT THE PROJECT</label>
+        <textarea id="message" name="message" rows="4" placeholder="What are you building, and when do you need it live?" required></textarea>
+      </div>
+      <button type="submit" class="btn btn--big btn--fill" data-cursor="send">
+        <span>SEND ENQUIRY</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5H8M19 5v11" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <p class="form__note mono" id="formNote"></p>
+    </form>
+
+    <aside class="contact__side">
+      <div class="contact__block">
+        <span class="mono dim">EMAIL</span>
+        <a href="mailto:itsmanan.dev@gmail.com">itsmanan.dev@gmail.com</a>
+      </div>
+      <div class="contact__block">
+        <span class="mono dim">WHATSAPP</span>
+        <a href="https://wa.me/910000000000" target="_blank" rel="noopener">+91 00000 00000</a>
+      </div>
+      <div class="contact__block">
+        <span class="mono dim">SOCIALS</span>
+        <div class="contact__socials">
+          <a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">GitHub</a>
+        </div>
+      </div>
+      <div class="contact__block">
+        <span class="mono dim">CURRENT STATUS</span>
+        <span class="status status--lg"><i></i>TAKING NEW PROJECTS</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="footer__big" aria-hidden="true">MANAN</div>
+  <div class="footer__row">
+    <p class="mono dim">© <span id="year">2026</span> MANAN — ALL RIGHTS RESERVED</p>
+    <p class="mono dim">DESIGNED &amp; BUILT INDEPENDENTLY</p>
+    <button class="mono footer__top" id="toTop">BACK TO TOP ↑</button>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
