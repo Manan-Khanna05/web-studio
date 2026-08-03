@@ -231,6 +231,14 @@
       });
     }
 
+    /* spotlight tracking the pointer across the contact card */
+    const cardEl = $('.cform');
+    cardEl?.addEventListener('mousemove', (e) => {
+      const r = cardEl.getBoundingClientRect();
+      cardEl.style.setProperty('--sx', `${e.clientX - r.left}px`);
+      cardEl.style.setProperty('--sy', `${e.clientY - r.top}px`);
+    });
+
     /* soft radial highlight tracking the cursor inside buttons */
     $$('.btn, .plan__btn').forEach(btn => {
       btn.addEventListener('mousemove', (e) => {

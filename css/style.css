@@ -23,9 +23,13 @@
   --radius:    28px;
   --radius-lg: 36px;
 
-  --display: "SF Pro Display",-apple-system,"Satoshi","Satoshi Placeholder",Segoe UI,sans-serif;
-  --brandf:  "Clash Display","Clash Display Placeholder",var(--display);
-  --body:    "SF Pro Text",-apple-system,"Satoshi","Satoshi Placeholder",Segoe UI,sans-serif;
+  /* One family for everything. "SF Pro" and -apple-system only exist on
+     Apple hardware, so they made the same page render in two different
+     faces depending on the machine. Satoshi ships from Fontshare and
+     looks identical everywhere. */
+  --display: "Satoshi","Satoshi Placeholder",Segoe UI,Helvetica,Arial,sans-serif;
+  --brandf:  var(--display);
+  --body:    var(--display);
   --mono:    ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
 
   --pad: clamp(20px, 5vw, 80px);
@@ -992,7 +996,7 @@ body.loaded .hero__title .line__in{ transform:none; }
 /* ── aurora backdrop ─────────────────────────────────────── */
 .aurora{ position:fixed; inset:0; z-index:-2; pointer-events:none; overflow:hidden; }
 .aurora i{
-  position:absolute; border-radius:50%; filter:blur(100px); opacity:.5;
+  position:absolute; border-radius:50%; filter:blur(90px); opacity:.85;
   will-change:transform;
 }
 .aurora i:nth-child(1){
@@ -1013,9 +1017,11 @@ body.loaded .hero__title .line__in{ transform:none; }
 @keyframes aur1{ to{ transform:translate3d(10vw,10vh,0) scale(1.2); } }
 @keyframes aur2{ to{ transform:translate3d(-9vw,-8vh,0) scale(1.16); } }
 @keyframes aur3{ to{ transform:translate3d(6vw,-12vh,0) scale(1.22); } }
-.page-contact::before{     /* keeps the aurora readable */
+.page-contact::before{     /* veil, light enough to let colour through */
   content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
-  background:linear-gradient(180deg, rgba(6,7,10,.74), rgba(6,7,10,.88));
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(6,7,10,.30), transparent 70%),
+    linear-gradient(180deg, rgba(6,7,10,.52), rgba(6,7,10,.72));
 }
 
 /* ── layout ──────────────────────────────────────────────── */
@@ -1127,7 +1133,12 @@ body.loaded .cfield{ opacity:1; transform:none; }
   padding:26px 16px 11px; resize:vertical;
   transition:border-color .35s, background .35s;
 }
-.cfield select{ padding:22px 16px 10px; }
+.cfield select{
+  padding:30px 40px 12px 16px; line-height:1.2;
+  appearance:none; -webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%23C9CED6' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 15px center; background-size:18px;
+}
 .cfield select option{ background:#0d1117; }
 .cfield label{
   position:absolute; left:17px; top:18px;
@@ -1138,11 +1149,11 @@ body.loaded .cfield{ opacity:1; transform:none; }
 .cfield input:not(:placeholder-shown) + label,
 .cfield textarea:focus + label,
 .cfield textarea:not(:placeholder-shown) + label,
-.cfield__static{
-  top:9px; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+.cfield label.cfield__static{
+  top:10px; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
   font-family:var(--mono); color:var(--accent);
 }
-.cfield__static{ color:rgba(201,206,214,.62); }
+.cfield label.cfield__static{ color:rgba(201,206,214,.6); }
 .cfield input:focus,.cfield textarea:focus,.cfield select:focus{
   outline:none; background:rgba(255,255,255,.075); border-color:rgba(255,255,255,.22);
 }
@@ -1187,3 +1198,43 @@ body.loaded .cfield{ opacity:1; transform:none; }
 }
 .cta-band__sub{ color:var(--muted); font-size:clamp(15px,1.6vw,18px); max-width:52ch; }
 .cta-band__actions{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+
+/* ══════════════ CONTACT CARD — PREMIUM PASS ══════════════ */
+
+/* A conic gradient slowly orbits the card edge. Painted into the 1px
+   border box only, so it reads as light catching a glass rim. */
+.cform{
+  background:rgba(255,255,255,.075);
+  border-color:transparent;
+  background-clip:padding-box;
+  isolation:isolate;
+}
+.cform::before{
+  content:""; position:absolute; inset:-1px; z-index:-1;
+  border-radius:inherit; padding:1px;
+  background:conic-gradient(from var(--a,0deg),
+    rgba(255,255,255,.28), rgba(0,230,118,.85), rgba(59,130,246,.8),
+    rgba(255,255,255,.18), rgba(255,255,255,.28));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  animation:orbit 9s linear infinite;
+}
+@property --a{ syntax:'<angle>'; initial-value:0deg; inherits:false; }
+@keyframes orbit{ to{ --a:360deg; } }
+
+/* soft spotlight following the pointer across the card */
+.cform::after{
+  content:""; position:absolute; inset:0; z-index:-1;
+  border-radius:inherit; pointer-events:none; opacity:0;
+  background:radial-gradient(320px circle at var(--sx,50%) var(--sy,50%),
+    rgba(255,255,255,.10), transparent 60%);
+  transition:opacity .5s var(--ease);
+}
+.cform:hover::after{ opacity:1; }
+
+/* the heading matches the headline family and weight now */
+.cform__top h2{ font-weight:700; letter-spacing:-.03em; }
+
+@media (prefers-reduced-motion:reduce){
+  .cform::before{ animation:none; }
+}

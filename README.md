@@ -80,6 +80,11 @@ text white · secondary text `#C9CED6`. Change `--accent` to rebrand.
 
 **Motion** — everything eases on `cubic-bezier(.16,1,.3,1)`.
 
+**Type** — one family, Satoshi, everywhere. `"SF Pro Display"` and
+`-apple-system` were removed from the stacks: they only resolve on Apple
+hardware, so the same page rendered in two different faces depending on
+the machine. Only Satoshi is fetched now, which also drops a font request.
+
 ### Swapping the background image
 
 Drop a new photo at `assets/hero-city.avif` (or change the `url()` in
