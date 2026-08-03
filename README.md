@@ -6,12 +6,41 @@ serverless backend for the enquiry form.
 Front end is plain HTML/CSS/JS — no build step, no dependencies, no framework.
 
 ```
-index.html            all content / copy
+index.html            homepage
+contact.html          dedicated contact page
 css/style.css         all styling (design tokens at the top)
-js/main.js            cursor, menu, parallax, magnetics, counters, form
+js/main.js            shared behaviour for both pages
 api/contact.js        serverless enquiry endpoint (Vercel)
-assets/hero-city.avif   hero background photograph
+assets/hero-city.avif hero background photograph
 ```
+
+Two pages, one stylesheet, one script. Every element lookup in `main.js`
+is guarded, so the same file drives both pages without errors.
+
+## The contact page
+
+Deliberately a different world from the homepage — no photograph, a slow
+three-blob aurora instead, split composition, and its own animation set:
+
+| Effect | Where |
+|---|---|
+| Word-by-word headline mask | `.cpage__title b`, `--w` staggers each word |
+| Aurora blobs, 24-30s drift | `.aurora i` |
+| Floating labels | `.cfield label`, driven by `:not(:placeholder-shown)` |
+| Focus underline from centre | `.cfield i`, `scaleX(0)` to `1` |
+| Fields stagger on load | `.cfield`, `--i` |
+| Sticky form beside scrolling detail rows | `.cform { position: sticky }` |
+| Detail rows slide right on hover | `a.detail:hover` |
+
+The homepage keeps a compact CTA band where the form used to be, so the
+one-pager still converts without duplicating the form.
+
+### Page transitions
+
+Internal page links drop the curtain, wait 620ms, then navigate — so
+moving between the two pages feels continuous. External links, `mailto:`
+and same-page anchors are left alone, and `pageshow` lifts the curtain
+when returning via the back button.
 
 ## Design system
 

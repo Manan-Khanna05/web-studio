@@ -12,7 +12,7 @@
      Counter fills, preloader fades, then five panels wipe upward. */
   const pre = $('#preloader'), preCount = $('#preCount'), preBar = $('#preBar');
   let n = 0;
-  const tick = setInterval(() => {
+  const tick = pre && setInterval(() => {
     n = Math.min(100, n + Math.random() * 14);
     preCount.textContent = Math.round(n);
     preBar.style.width = n + '%';
@@ -26,15 +26,33 @@
     }
   }, 110);
 
+  /* No preloader on this page? Reveal immediately. Uses a timer, not
+     requestAnimationFrame — rAF is suspended in background tabs, which
+     would leave the page stuck in its hidden pre-animation state. */
+  if (!pre) {
+    document.body.classList.add('curtain-up');
+    setTimeout(() => document.body.classList.add('loaded'), 40);
+  }
+
+  /* Failsafe: `loaded` gates the hero lines and the contact headline, so
+     it must land even if the preloader stalls. */
+  setTimeout(() => {
+    document.body.classList.add('curtain-up', 'loaded');
+    pre?.classList.add('done');
+  }, 4000);
+
   /* ── LIVE CLOCK ────────────────────────────────────────── */
   const clock = $('#clock');
-  const setClock = () => {
-    clock.textContent = new Date().toLocaleTimeString('en-GB', { hour12: false });
-  };
-  setClock();
-  setInterval(setClock, 1000);
+  if (clock) {
+    const setClock = () => {
+      clock.textContent = new Date().toLocaleTimeString('en-GB', { hour12: false });
+    };
+    setClock();
+    setInterval(setClock, 1000);
+  }
 
-  $('#year').textContent = new Date().getFullYear();
+  const yearEl = $('#year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* ── FULLSCREEN MENU ───────────────────────────────────── */
   const menuBtn = $('#menuBtn');
@@ -43,10 +61,11 @@
   const setMenu = (open) => {
     document.body.classList.toggle('menu-open', open);
     document.body.classList.toggle('is-locked', open);
-    $('.menu-btn__txt').textContent = open ? 'CLOSE' : 'MENU';
+    const btnTxt = $('.menu-btn__txt');
+    if (btnTxt) btnTxt.textContent = open ? 'CLOSE' : 'MENU';
     links.forEach((l, i) => { l.style.transitionDelay = open ? `${0.18 + i * 0.06}s` : '0s'; });
   };
-  menuBtn.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+  menuBtn?.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
   links.forEach(l => l.addEventListener('click', () => setMenu(false)));
   $('#menuClose')?.addEventListener('click', () => setMenu(false));
   $('.menu__cta')?.addEventListener('click', () => setMenu(false));
@@ -55,7 +74,7 @@
   /* ── HIDE NAV ON SCROLL DOWN ───────────────────────────── */
   const nav = $('#nav');
   let lastY = 0;
-  addEventListener('scroll', () => {
+  if (nav) addEventListener('scroll', () => {
     const y = scrollY;
     nav.classList.toggle('hide', y > lastY && y > 400 && !document.body.classList.contains('menu-open'));
     lastY = y;
@@ -279,21 +298,21 @@
 
   /* portfolio list → preview follows the cursor */
   const prev = $('#projPreview'), prevInner = $('.proj-preview__inner');
-  $$('.project').forEach(p => {
+  if (prev && prevInner) $$('.project').forEach(p => {
     p.addEventListener('mouseenter', () => {
       prevInner.style.backgroundImage = previews[p.dataset.img] || previews[1];
       prev.classList.add('show');
     });
     p.addEventListener('mouseleave', () => prev.classList.remove('show'));
   });
-  addEventListener('mousemove', e => {
+  if (prev) addEventListener('mousemove', e => {
     prev.style.left = e.clientX + 'px';
     prev.style.top  = e.clientY + 'px';
   }, { passive: true });
 
   /* menu links → image fades in behind the type */
   const menuMedia = $('#menuMedia'), menuMediaIn = $('.menu__media-in');
-  links.forEach(l => {
+  if (menuMedia && menuMediaIn) links.forEach(l => {
     l.addEventListener('mouseenter', () => {
       menuMediaIn.style.backgroundImage = previews[l.dataset.reveal] || previews[1];
       menuMedia.classList.add('show');
@@ -328,7 +347,7 @@
     say('OPENING YOUR MAIL APP — HIT SEND AND WE WILL REPLY WITHIN 24 HOURS.');
   };
 
-  form.addEventListener('submit', async (e) => {
+  if (form) form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
     let ok = true;
@@ -370,7 +389,31 @@
     }
   });
 
+  /* ── PAGE TRANSITION ───────────────────────────────────
+     Internal page links drop the curtain before navigating, so moving
+     between pages feels continuous instead of a hard reload. */
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href]');
+    if (!a || REDUCED) return;
+    if (a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin) return;                 // external
+    if (url.pathname === location.pathname) return;             // same page anchor
+    if (!/\.html?$|\/$/.test(url.pathname)) return;             // not a page
+
+    e.preventDefault();
+    document.body.classList.remove('curtain-up');               // curtain falls
+    setTimeout(() => { location.href = url.href; }, 620);
+  });
+
+  /* Coming back via the browser's back button restores a cached page with
+     the curtain still down — lift it. */
+  addEventListener('pageshow', (e) => {
+    if (e.persisted) document.body.classList.add('curtain-up');
+  });
+
   /* ── BACK TO TOP ───────────────────────────────────────── */
-  $('#toTop').addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+  $('#toTop')?.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 
 })();

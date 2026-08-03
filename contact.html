@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact — KILN Studio</title>
+<meta name="description" content="Tell us what you're building. You'll get a reply within 24 hours with a clear plan, a fixed price and a launch date." />
+<meta name="theme-color" content="#06070A" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23000000'/%3E%3Cpath d='M30 24v52M30 52l30-28M42 41l24 35' fill='none' stroke='%2300E676' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E" />
+
+<meta property="og:title" content="Contact — KILN Studio" />
+<meta property="og:description" content="Start a project with Kiln. Reply within 24 hours." />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" />
+<link rel="stylesheet" href="css/style.css" />
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="page-contact">
+
+<!-- ══════════════ AURORA BACKDROP (contact only) ══════════════ -->
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-noise" aria-hidden="true"></div>
+
+<div class="progress" id="progress" aria-hidden="true"><i></i></div>
+
+<div class="curtain" id="curtain" aria-hidden="true">
+  <i></i><i></i><i></i><i></i><i></i>
+</div>
+
+<div class="cursor-dot"  id="cursorDot"  aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+<!-- ══════════════ NAV ══════════════ -->
+<header class="nav" id="nav">
+  <div class="nav__left">
+    <a href="index.html" class="brand">KILN<span>®</span></a>
+  </div>
+  <div class="nav__mid">
+    <span class="mono">LOCAL/</span>
+    <span class="mono" id="clock">00:00:00</span>
+  </div>
+  <div class="nav__right">
+    <a href="index.html" class="nav__cta mono" data-magnetic>HOME</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <span class="mono menu-btn__txt">MENU</span>
+      <span class="menu-btn__bars"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+
+<!-- ══════════════ FULLSCREEN MENU ══════════════ -->
+<div class="menu" id="menu">
+  <div class="menu__bar">
+    <span class="mono dim">INDIA — WORKING WORLDWIDE</span>
+    <button class="menu__close" id="menuClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </button>
+    <a href="index.html" class="menu__cta mono" data-magnetic>BACK HOME</a>
+  </div>
+
+  <nav class="menu__list" id="menuList">
+    <a href="index.html"          class="menu__link" data-reveal="1">HOME</a>
+    <a href="index.html#work"     class="menu__link" data-reveal="3">SELECTED WORK</a>
+    <a href="index.html#services" class="menu__link" data-reveal="4">SERVICES</a>
+    <a href="index.html#pricing"  class="menu__link" data-reveal="5">PRICING</a>
+    <a href="contact.html"        class="menu__link" data-reveal="2">CONTACT</a>
+  </nav>
+
+  <div class="menu__media" id="menuMedia"><div class="menu__media-in"></div></div>
+
+  <div class="menu__foot">
+    <div class="menu__foot-col">
+      <span class="mono dim">GET IN TOUCH</span>
+      <a href="mailto:itsmanan.dev@gmail.com" class="menu__mail">itsmanan.dev@gmail.com</a>
+    </div>
+    <div class="menu__socials">
+      <a href="#" target="_blank" rel="noopener">INSTAGRAM</a>
+      <a href="#" target="_blank" rel="noopener">LINKEDIN</a>
+      <a href="#" target="_blank" rel="noopener">GITHUB</a>
+      <a href="#" target="_blank" rel="noopener">DRIBBBLE</a>
+    </div>
+  </div>
+</div>
+
+<main class="cpage">
+
+  <!-- ══════════════ SPLIT HERO ══════════════ -->
+  <section class="cpage__hero">
+
+    <!-- LEFT: headline + details -->
+    <div class="cpage__left">
+      <span class="cpage__eyebrow mono"><i></i>TAKING NEW PROJECTS — 2026</span>
+
+      <!-- each word masks up on its own delay -->
+      <h1 class="cpage__title">
+        <span class="w"><b style="--w:1">LET'S</b></span>
+        <span class="w"><b style="--w:2">BUILD</b></span>
+        <span class="w"><b style="--w:3">SOMETHING</b></span>
+        <span class="w"><b style="--w:4"><em>WORTH</em></b></span>
+        <span class="w"><b style="--w:5"><em>SHARING</em></b></span>
+      </h1>
+
+      <p class="cpage__lead" data-anim="up">
+        Tell us what you're building. You'll get a reply within 24 hours with
+        a clear plan, a fixed price and a launch date — no obligation, no
+        sales call unless you want one.
+      </p>
+
+      <div class="cpage__facts">
+        <div class="fact" data-anim="up">
+          <span class="fact__n">24h</span>
+          <span class="mono dim">AVERAGE REPLY</span>
+        </div>
+        <div class="fact" data-anim="up">
+          <span class="fact__n">3–5d</span>
+          <span class="mono dim">LANDING PAGE</span>
+        </div>
+        <div class="fact" data-anim="up">
+          <span class="fact__n">50%</span>
+          <span class="mono dim">UPFRONT, THAT'S ALL</span>
+        </div>
+      </div>
+
+      <div class="cpage__details">
+        <a class="detail" href="mailto:itsmanan.dev@gmail.com" data-anim="left">
+          <span class="mono dim">EMAIL US</span>
+          <span class="detail__v">itsmanan.dev@gmail.com</span>
+          <span class="detail__go">↗</span>
+        </a>
+        <a class="detail" href="https://wa.me/910000000000" target="_blank" rel="noopener" data-anim="left">
+          <span class="mono dim">WHATSAPP</span>
+          <span class="detail__v">+91 00000 00000</span>
+          <span class="detail__go">↗</span>
+        </a>
+        <div class="detail detail--static" data-anim="left">
+          <span class="mono dim">CURRENT LOCATION</span>
+          <span class="detail__v">India — working worldwide</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: form card -->
+    <div class="cpage__right">
+      <form class="cform" id="contactForm" novalidate>
+        <div class="cform__top">
+          <span class="mono dim">PROJECT ENQUIRY</span>
+          <h2>Tell us about it</h2>
+        </div>
+
+        <div class="cfield" style="--i:1">
+          <input type="text" id="name" name="name" placeholder=" " required />
+          <label for="name">Your name</label>
+          <i></i>
+        </div>
+
+        <div class="cfield" style="--i:2">
+          <input type="email" id="email" name="email" placeholder=" " required />
+          <label for="email">Email address</label>
+          <i></i>
+        </div>
+
+        <div class="cfield cfield--select" style="--i:3">
+          <select id="budget" name="budget">
+            <option>Under $250</option>
+            <option selected>$250 – $600</option>
+            <option>$600 – $1,200</option>
+            <option>$1,200+</option>
+            <option>Not sure yet</option>
+          </select>
+          <label for="budget" class="cfield__static">Budget range</label>
+          <i></i>
+        </div>
+
+        <div class="cfield" style="--i:4">
+          <textarea id="message" name="message" rows="4" placeholder=" " required></textarea>
+          <label for="message">What are you building?</label>
+          <i></i>
+        </div>
+
+        <!-- spam honeypot -->
+        <div class="hp" aria-hidden="true">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <button type="submit" class="btn btn--big btn--fill cform__submit" id="submitBtn" data-magnetic>
+          <span>Send enquiry</span>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5H8M19 5v11" stroke="currentColor" stroke-width="1.6"/></svg>
+        </button>
+        <p class="form__note mono" id="formNote" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ══════════════ CLOSING MARQUEE ══════════════ -->
+  <div class="marquee marquee--slim" aria-hidden="true">
+    <div class="marquee__track">
+      <span>LET'S TALK ✳ START A PROJECT ✳ REPLY IN 24 HOURS ✳ FIXED PRICES ✳ NO SALES CALLS ✳</span>
+      <span>LET'S TALK ✳ START A PROJECT ✳ REPLY IN 24 HOURS ✳ FIXED PRICES ✳ NO SALES CALLS ✳</span>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__big" aria-hidden="true">KILN</div>
+  <div class="footer__row">
+    <p class="mono dim">© <span id="year">2026</span> KILN STUDIO — ALL RIGHTS RESERVED</p>
+    <p class="mono dim">DESIGNED &amp; BUILT IN-HOUSE</p>
+    <button class="mono footer__top" id="toTop" data-magnetic>BACK TO TOP ↑</button>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
