@@ -48,6 +48,8 @@
   };
   menuBtn.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
   links.forEach(l => l.addEventListener('click', () => setMenu(false)));
+  $('#menuClose')?.addEventListener('click', () => setMenu(false));
+  $('.menu__cta')?.addEventListener('click', () => setMenu(false));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
   /* ── HIDE NAV ON SCROLL DOWN ───────────────────────────── */
@@ -62,19 +64,47 @@
   /* ── SCROLL REVEAL ─────────────────────────────────────
      Siblings inside a group stagger against each other rather than
      against document order, so each section animates as a unit. */
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('in');
-      io.unobserve(e.target);
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+  const animated = $$('.reveal, [data-anim]');
 
-  $$('.reveal, [data-anim]').forEach(el => {
+  animated.forEach(el => {
     const sibs = [...el.parentElement.children].filter(c => c.matches('.reveal, [data-anim]'));
     el.style.setProperty('--d', `${Math.min(sibs.indexOf(el), 7) * 0.09}s`);
-    io.observe(el);
   });
+
+  const show = (el) => el.classList.add('in');
+
+  /* Geometry sweep — the source of truth. IntersectionObserver is a
+     nice-to-have on top; if it never fires (background tab, odd embed)
+     this still reveals everything on scroll. */
+  let pending = animated.slice();
+  const sweep = () => {
+    if (!pending.length) return;
+    const limit = innerHeight * 0.94;
+    pending = pending.filter(el => {
+      if (el.getBoundingClientRect().top < limit) { show(el); return false; }
+      return true;
+    });
+  };
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        show(e.target);
+        pending = pending.filter(el => el !== e.target);
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+    animated.forEach(el => io.observe(el));
+  }
+
+  addEventListener('scroll', sweep, { passive: true });
+  addEventListener('resize', sweep, { passive: true });
+  addEventListener('load', sweep);
+  sweep();
+
+  /* Last line of defence: nothing stays invisible, ever. */
+  setTimeout(() => { animated.forEach(show); pending = []; }, 5000);
 
   /* ── SCROLL PROGRESS ───────────────────────────────────── */
   const progressBar = $('#progress i');

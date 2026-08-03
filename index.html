@@ -16,6 +16,12 @@
 <link rel="preconnect" href="https://api.fontshare.com" />
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" />
 <link rel="stylesheet" href="css/style.css" />
+<script>
+  /* Entrance animations hide content until revealed. Only opt in when JS
+     is actually running, so a script failure can never leave the page
+     blank. Runs before first paint to avoid a flash. */
+  document.documentElement.classList.add('js');
+</script>
 </head>
 <body>
 
@@ -65,18 +71,27 @@
 
 <!-- ══════════════ FULLSCREEN MENU ══════════════ -->
 <div class="menu" id="menu">
-  <nav class="menu__list">
-    <a href="#home"     class="menu__link" data-reveal="1"><span class="mono">01</span> HOME</a>
-    <a href="#approach" class="menu__link" data-reveal="2"><span class="mono">02</span> APPROACH</a>
-    <a href="#work"     class="menu__link" data-reveal="3"><span class="mono">03</span> WORK</a>
-    <a href="#services" class="menu__link" data-reveal="4"><span class="mono">04</span> SERVICES</a>
-    <a href="#pricing"  class="menu__link" data-reveal="5"><span class="mono">05</span> PRICING</a>
-    <a href="#contact"  class="menu__link" data-reveal="1"><span class="mono">06</span> CONTACT</a>
+  <div class="menu__bar">
+    <span class="mono dim">INDIA — WORKING WORLDWIDE</span>
+    <button class="menu__close" id="menuClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </button>
+    <a href="#contact" class="menu__cta mono" data-magnetic>CONTACT NOW</a>
+  </div>
+
+  <nav class="menu__list" id="menuList">
+    <a href="#home"     class="menu__link" data-reveal="1">HOME</a>
+    <a href="#work"     class="menu__link" data-reveal="3">SELECTED WORK</a>
+    <a href="#services" class="menu__link" data-reveal="4">SERVICES</a>
+    <a href="#pricing"  class="menu__link" data-reveal="5">PRICING</a>
+    <a href="#contact"  class="menu__link" data-reveal="2">CONTACT</a>
   </nav>
+
   <div class="menu__media" id="menuMedia"><div class="menu__media-in"></div></div>
+
   <div class="menu__foot">
-    <div>
-      <p class="mono dim">GET IN TOUCH</p>
+    <div class="menu__foot-col">
+      <span class="mono dim">GET IN TOUCH</span>
       <a href="mailto:itsmanan.dev@gmail.com" class="menu__mail">itsmanan.dev@gmail.com</a>
     </div>
     <div class="menu__socials">
@@ -499,10 +514,17 @@
     <span class="mono dim">REPLY WITHIN 24H</span>
   </div>
 
-  <h2 class="contact__title" data-anim="clip">LET'S WORK<br>TOGETHER</h2>
+  <div class="contact__head">
+    <h2 class="contact__title" data-anim="clip">REACH OUT<br>TO US!</h2>
+    <p class="contact__sub" data-anim="up">
+      Tell us what you're building. You'll get a reply within 24 hours with a
+      clear plan, a fixed price and a launch date — no obligation.
+    </p>
+  </div>
 
   <div class="contact__grid">
-    <form class="form" id="contactForm" novalidate>
+    <form class="form" id="contactForm" data-anim="up" novalidate>
+      <span class="form__label mono dim">ENTER YOUR DETAILS BELOW</span>
       <div class="field">
         <label for="name" class="mono">01 / YOUR NAME</label>
         <input type="text" id="name" name="name" placeholder="Jane Doe" required />
@@ -532,33 +554,40 @@
         <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
       </div>
 
-      <button type="submit" class="btn btn--big btn--fill" id="submitBtn" data-cursor="send" data-magnetic>
-        <span>SEND ENQUIRY</span>
+      <button type="submit" class="btn btn--big btn--fill" id="submitBtn" data-magnetic>
+        <span>Submit enquiry</span>
         <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5H8M19 5v11" stroke="currentColor" stroke-width="1.6"/></svg>
       </button>
       <p class="form__note mono" id="formNote" role="status"></p>
     </form>
+  </div>
 
-    <aside class="contact__side">
-      <div class="contact__block">
-        <span class="mono dim">EMAIL</span>
-        <a href="mailto:itsmanan.dev@gmail.com">itsmanan.dev@gmail.com</a>
+  <!-- info strip, mirroring the reference layout -->
+  <div class="contact__info">
+    <div class="info-block" data-anim="up">
+      <span class="mono dim">CURRENT LOCATION</span>
+      <p>India<br>Working worldwide</p>
+    </div>
+    <div class="info-block" data-anim="up">
+      <span class="mono dim">EMAIL US</span>
+      <a href="mailto:itsmanan.dev@gmail.com">itsmanan.dev@gmail.com</a>
+    </div>
+    <div class="info-block" data-anim="up">
+      <span class="mono dim">WHATSAPP</span>
+      <a href="https://wa.me/910000000000" target="_blank" rel="noopener">+91 00000 00000</a>
+    </div>
+    <div class="info-block" data-anim="up">
+      <span class="mono dim">FOLLOW US</span>
+      <div class="info-block__socials">
+        <a href="#" target="_blank" rel="noopener">Instagram</a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#" target="_blank" rel="noopener">GitHub</a>
       </div>
-      <div class="contact__block">
-        <span class="mono dim">WHATSAPP</span>
-        <a href="https://wa.me/910000000000" target="_blank" rel="noopener">+91 00000 00000</a>
-      </div>
-      <div class="contact__block">
-        <span class="mono dim">SOCIALS</span>
-        <div class="contact__socials">
-          <a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">GitHub</a>
-        </div>
-      </div>
-      <div class="contact__block">
-        <span class="mono dim">CURRENT STATUS</span>
-        <span class="status status--lg"><i></i>TAKING NEW PROJECTS</span>
-      </div>
-    </aside>
+    </div>
+    <div class="info-block info-block--status" data-anim="up">
+      <span class="mono dim">CURRENT STATUS</span>
+      <span class="status status--lg"><i></i>TAKING NEW PROJECTS</span>
+    </div>
   </div>
 </section>
 

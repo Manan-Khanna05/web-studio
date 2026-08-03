@@ -146,6 +146,7 @@ The same object feeds the image reveal behind the fullscreen menu links.
 | Hero photo slow zoom | `.hero__photo` |
 | Scroll progress rail | `.progress` |
 | Custom cursor: dot + trailing ring | `#cursorDot`, `#cursorRing` |
+| Fullscreen menu, centred stack | `.menu__list`, siblings dim on hover |
 | Magnetic buttons | `data-magnetic` attribute |
 | Cursor-follow depth on hero cards | `.spec__col`, 10/13/16px |
 | Radial highlight tracking cursor in buttons | `--hx` / `--hy` on `.btn` |
@@ -161,6 +162,16 @@ lifts write `transform` — separate properties, so they compose instead of
 overwriting each other.
 
 Everything respects `prefers-reduced-motion`.
+
+### Why entrance animations can't hide your content
+
+Elements only start invisible when `<html>` carries the `js` class, which an
+inline script adds before first paint. If JavaScript fails to load, nothing
+is ever hidden. On top of that the reveal engine uses three independent
+triggers — an IntersectionObserver, a geometry sweep on scroll/resize/load,
+and a 5-second failsafe that reveals everything regardless. Content being
+permanently invisible is the worst failure mode a site like this has, so it
+is guarded three ways.
 
 ## Before sending this to a client
 
