@@ -10,7 +10,7 @@ index.html            all content / copy
 css/style.css         all styling (design tokens at the top)
 js/main.js            cursor, menu, parallax, magnetics, counters, form
 api/contact.js        serverless enquiry endpoint (Vercel)
-assets/bg-skyline.avif  hero background photograph (34 KB)
+assets/hero-city.avif   hero background photograph
 ```
 
 ## Design system
@@ -23,9 +23,9 @@ around the panel edges. Below the hero the page is clean near-black.
 
 | Layer | What it does |
 |---|---|
-| `.hero__photo` | Sharp skyline, 40s slow zoom, hero-only |
+| `.hero__photo` | Sharp skyline, 48s slow zoom, hero-only |
 | `.hero__shade` | Gradient + vignette so the panel edge has contrast |
-| `.hero__panel` | `blur(28px)` frosted panel — the actual glass effect |
+| `.hero__panel` | Light `blur(14px)` card; contrast comes from the gradient |
 | `.spec__col` | 3 cards overlapping the panel's lower edge |
 | `.bg-glow` | Two very soft accent washes, page-wide |
 | `.bg-grid` / `.bg-noise` | Dot grid and animated film grain |
@@ -53,8 +53,9 @@ text white · secondary text `#C9CED6`. Change `--accent` to rebrand.
 
 ### Swapping the background image
 
-Drop a new photo at `assets/bg-skyline.avif` (or change the `url()` in
-`.hero__photo`). The photo stays sharp, so use something reasonably crisp — but it sits
+Drop a new photo at `assets/hero-city.avif` (or change the `url()` in
+`.hero__photo`). **Use at least 1920px wide** — the photo is not blurred,
+so a small source will look soft when stretched across the hero. The photo stays sharp, so use something reasonably crisp — but it sits
 behind a dark gradient, so 1600px wide is plenty. Landscapes, skylines and
 architecture read best.
 
@@ -143,7 +144,7 @@ The same object feeds the image reveal behind the fullscreen menu links.
 | Navbar slides down on load | `body.loaded .nav` |
 | Hero photo slow zoom | `.hero__photo` |
 | Scroll progress rail | `.progress` |
-| Custom cursor with contextual labels | `#cursor`, `data-cursor="…"` |
+| Custom cursor: dot + trailing ring | `#cursorDot`, `#cursorRing` |
 | Magnetic buttons | `data-magnetic` attribute |
 | Cursor-follow depth on hero cards | `.spec__col`, 10/13/16px |
 | Radial highlight tracking cursor in buttons | `--hx` / `--hy` on `.btn` |

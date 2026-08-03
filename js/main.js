@@ -212,27 +212,27 @@
     });
   }
 
-  /* ── CUSTOM CURSOR ─────────────────────────────────────── */
-  const cursor = $('#cursor'), cursorLabel = $('#cursorLabel');
-  if (matchMedia('(hover:hover)').matches) {
-    let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
-    addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+  /* ── CUSTOM CURSOR ─────────────────────────────────────
+     Dot tracks the pointer 1:1; ring trails with easing. Hover state is
+     delegated off document so it works for anything added later. */
+  const dot = $('#cursorDot'), ring = $('#cursorRing');
+  if (dot && ring && matchMedia('(hover:hover)').matches && !REDUCED) {
+    let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y;
+    addEventListener('mousemove', e => { x = e.clientX; y = e.clientY; }, { passive: true });
     (function loop() {
-      cx += (tx - cx) * 0.18;
-      cy += (ty - cy) * 0.18;
-      cursor.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+      rx += (x - rx) * 0.16;
+      ry += (y - ry) * 0.16;
+      dot.style.transform  = `translate3d(${x}px,${y}px,0)`;
+      ring.style.transform = `translate3d(${rx.toFixed(2)}px,${ry.toFixed(2)}px,0)`;
       requestAnimationFrame(loop);
     })();
 
-    $$('a, button, summary, .plan, .phase').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.classList.add('is-active');
-        cursorLabel.textContent = el.dataset.cursor || 'view';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.classList.remove('is-active');
-        cursorLabel.textContent = '';
-      });
+    const HOT = 'a, button, summary, input, select, textarea, label';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(HOT)) document.body.classList.add('cursor-hot');
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(HOT)) document.body.classList.remove('cursor-hot');
     });
   }
 

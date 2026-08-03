@@ -81,13 +81,13 @@
     linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
   background-size:64px 64px, 64px 64px, 64px 64px;
   background-position:center;
-  opacity:.4;
+  opacity:.24;
   mask-image:radial-gradient(ellipse 90% 70% at 50% 40%, #000 30%, transparent 100%);
   -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 40%, #000 30%, transparent 100%);
 }
 .bg-noise{
   position:fixed; inset:-150%; z-index:600; pointer-events:none;
-  width:400%; height:400%; opacity:.038;
+  width:400%; height:400%; opacity:.022;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grain 1s steps(6) infinite;
   will-change:transform;
@@ -179,22 +179,33 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; 
 }
 .preloader__bar i{ display:block; height:100%; width:0; background:var(--accent); }
 
-/* ══════════════ CURSOR ══════════════ */
-.cursor{
+/* ══════════════ CURSOR ══════════════
+   A 5px dot that tracks precisely, plus a thin ring that trails behind
+   it and eases open over interactive elements. Neutral white, no blend
+   modes — it reads as a refinement, never as an object on the page. */
+.cursor-dot,.cursor-ring{
   position:fixed; top:0; left:0; z-index:9000; pointer-events:none;
-  width:10px; height:10px; border-radius:99px; background:var(--accent);
-  display:grid; place-items:center;
-  transform:translate(-50%,-50%);
-  transition:width .35s var(--ease),height .35s var(--ease),background .3s;
-  mix-blend-mode:difference;
+  border-radius:50%; will-change:transform;
 }
-.cursor span{
-  font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;
-  color:var(--accent-ink); opacity:0; transition:opacity .2s; white-space:nowrap;
+.cursor-dot{
+  width:5px; height:5px; margin:-2.5px 0 0 -2.5px;
+  background:#fff;
+  transition:opacity .3s, scale .3s var(--ease);
 }
-.cursor.is-active{ width:84px; height:84px; }
-.cursor.is-active span{ opacity:1; }
-@media (hover:none),(max-width:900px){ .cursor{ display:none; } }
+.cursor-ring{
+  width:34px; height:34px; margin:-17px 0 0 -17px;
+  border:1px solid rgba(255,255,255,.4);
+  transition:scale .45s var(--ease), border-color .45s, background-color .45s;
+}
+/* over a link or button: ring opens, dot recedes */
+body.cursor-hot .cursor-ring{
+  scale:1.55;
+  border-color:rgba(255,255,255,.75);
+  background-color:rgba(255,255,255,.07);
+}
+body.cursor-hot .cursor-dot{ scale:.4; }
+
+@media (hover:none),(max-width:900px){ .cursor-dot,.cursor-ring{ display:none; } }
 
 /* ══════════════ NAV ══════════════ */
 /* floating glass pill, slides down on load */
@@ -307,32 +318,34 @@ body.menu-open .menu__link{ opacity:1; transform:none; }
 }
 .hero__photo{
   position:absolute; inset:0; z-index:-2;
-  background:url("../assets/bg-skyline.avif") center 30%/cover no-repeat, #0a0f18;
-  filter:saturate(88%) brightness(.72) contrast(1.05);
-  transform:scale(1.04);
-  animation:slowzoom 40s ease-in-out infinite alternate;
+  background:url("../assets/hero-city.avif") center 42%/cover no-repeat, #0a0f18;
+  filter:saturate(92%) brightness(.78) contrast(1.06);
+  transform:scale(1.02);
+  animation:slowzoom 48s ease-in-out infinite alternate;
   will-change:transform;
 }
-@keyframes slowzoom{ from{ transform:scale(1.04); } to{ transform:scale(1.13); } }
+@keyframes slowzoom{ from{ transform:scale(1.02); } to{ transform:scale(1.08); } }
 
+/* Contrast comes from this gradient, not from blurring the photo — so
+   the city stays crisp and the type stays readable. */
 .hero__shade{
   position:absolute; inset:0; z-index:-1;
   background:
-    linear-gradient(180deg, rgba(6,7,10,.55) 0%, rgba(6,7,10,.18) 32%, rgba(6,7,10,.86) 100%),
-    radial-gradient(ellipse 80% 70% at 50% 50%, transparent 40%, rgba(6,7,10,.6) 100%);
+    linear-gradient(180deg, rgba(6,7,10,.72) 0%, rgba(6,7,10,.28) 26%, rgba(6,7,10,.55) 62%, rgba(6,7,10,.94) 100%),
+    linear-gradient(90deg, rgba(6,7,10,.55) 0%, transparent 55%);
 }
 
-/* the frosted panel — this is what makes the glass read */
+/* a light frosted card — just enough to separate type from the skyline */
 .hero__panel{
   position:relative;
   width:100%; max-width:1080px; margin:0 auto;
   padding:clamp(26px,3.4vw,54px);
   border-radius:var(--radius);
-  background:rgba(255,255,255,.07);
-  backdrop-filter:blur(28px) saturate(180%);
-  -webkit-backdrop-filter:blur(28px) saturate(180%);
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 30px 90px rgba(0,0,0,.5), inset 0 1px rgba(255,255,255,.18);
+  background:rgba(10,14,20,.34);
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 28px 80px rgba(0,0,0,.45), inset 0 1px rgba(255,255,255,.14);
   display:flex; flex-direction:column; gap:clamp(22px,3vw,40px);
 }
 @media (max-width:700px){ .hero{ border-radius:24px; } .hero__panel{ border-radius:22px; } }
@@ -408,11 +421,11 @@ body.loaded .hero__title .line__in{ transform:none; }
 .spec__col{
   display:flex; gap:14px; align-items:flex-start;
   padding:18px; border-radius:20px;
-  background:rgba(255,255,255,.09);
-  backdrop-filter:blur(24px) saturate(180%);
-  -webkit-backdrop-filter:blur(24px) saturate(180%);
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 14px 40px rgba(0,0,0,.4), inset 0 1px rgba(255,255,255,.16);
+  background:rgba(10,14,20,.5);
+  backdrop-filter:blur(16px) saturate(150%);
+  -webkit-backdrop-filter:blur(16px) saturate(150%);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 14px 40px rgba(0,0,0,.4), inset 0 1px rgba(255,255,255,.12);
   transition:transform .5s var(--ease), background .4s, border-color .4s, box-shadow .5s;
 }
 .spec__col:hover{
