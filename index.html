@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>KILN — Web Design &amp; Development Studio</title>
 <meta name="description" content="Kiln is a digital studio crafting fast, modern websites, landing pages and web apps for brands that want to look established. Taking new projects worldwide." />
-<meta name="theme-color" content="#000000" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23000000'/%3E%3Cpath d='M30 24v52M30 52l30-28M42 41l24 35' fill='none' stroke='%23d3fd50' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E" />
+<meta name="theme-color" content="#06070A" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23000000'/%3E%3Cpath d='M30 24v52M30 52l30-28M42 41l24 35' fill='none' stroke='%2300E676' stroke-width='11' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E" />
 
 <meta property="og:title" content="KILN — Web Design &amp; Development Studio" />
 <meta property="og:description" content="Websites that look expensive, load fast and bring real business. Taking new projects worldwide." />
@@ -20,11 +20,12 @@
 <body>
 
 <!-- ══════════════ AMBIENT BACKDROP ══════════════ -->
-<div class="bg-photo" aria-hidden="true" data-bgparallax="0.06"></div>
-<div class="bg-tint" aria-hidden="true"></div>
-<div class="bg-blobs" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-glow" aria-hidden="true"></div>
 <div class="bg-noise" aria-hidden="true"></div>
+
+<!-- ══════════════ SCROLL PROGRESS ══════════════ -->
+<div class="progress" id="progress" aria-hidden="true"><i></i></div>
 
 <!-- ══════════════ PAGE-TRANSITION CURTAIN ══════════════ -->
 <div class="curtain" id="curtain" aria-hidden="true">
@@ -90,42 +91,60 @@
 
 <!-- ══════════════ HERO ══════════════ -->
 <section class="hero" id="home">
-  <div class="hero__glow" data-parallax="0.12"></div>
+  <!-- sharp building photo; the glass panel above does the blurring -->
+  <div class="hero__photo" aria-hidden="true"></div>
+  <div class="hero__shade" aria-hidden="true"></div>
 
-  <div class="hero__meta">
-    <div class="hero__meta-item">
-      <span class="mono dim">BASED IN</span>
-      <span class="mono">INDIA — WORKING WORLDWIDE</span>
+  <div class="hero__panel">
+    <div class="hero__meta">
+      <div class="hero__meta-item">
+        <span class="mono dim">BASED IN</span>
+        <span class="mono">INDIA — WORKING WORLDWIDE</span>
+      </div>
+      <div class="hero__meta-item hero__meta-item--right">
+        <span class="status"><i></i>AVAILABLE FOR PROJECTS</span>
+        <span class="mono dim">2026 SLOTS OPEN</span>
+      </div>
     </div>
-    <div class="hero__meta-item hero__meta-item--right">
-      <span class="status"><i></i>AVAILABLE FOR PROJECTS</span>
-      <span class="mono dim">2026 SLOTS OPEN</span>
+
+    <h1 class="hero__title">
+      <span class="line"><span class="line__in">WEB DESIGN</span></span>
+      <span class="line"><span class="line__in">+ DEVELOPMENT</span></span>
+      <span class="line line--out"><span class="line__in">YOUR&nbsp; IDEA <em>BUILT</em> RIGHT</span></span>
+    </h1>
+
+    <div class="hero__bottom">
+      <p class="hero__blurb">
+        We design and build fast, modern websites that make growing brands look
+        expensive — and turn visitors into paying customers.
+      </p>
+      <div class="hero__cta">
+        <a href="#contact" class="btn btn--fill" data-cursor="let's talk" data-magnetic>
+          <span>Start a project</span>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5H8M19 5v11" stroke="currentColor" stroke-width="1.6"/></svg>
+        </a>
+        <a href="#work" class="btn" data-cursor="see work" data-magnetic><span>See our work</span></a>
+      </div>
     </div>
   </div>
 
-  <h1 class="hero__title">
-    <span class="line"><span class="line__in">WEB DESIGN</span></span>
-    <span class="line"><span class="line__in">+ DEVELOPMENT</span></span>
-    <span class="line line--out"><span class="line__in">YOUR&nbsp; IDEA <em>BUILT</em> RIGHT</span></span>
-  </h1>
-
-  <!-- 3-column wireframe spec row -->
+  <!-- 3 floating glass cards, overlapping the panel edge -->
   <div class="spec">
-    <div class="spec__col reveal">
+    <div class="spec__col" data-anim="scale">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="10" r="2.6" stroke="currentColor" stroke-width="1.2"/></svg>
       <div>
         <span class="mono dim">LOCATION</span>
         <p>Remote-first studio<br>overlapping IST · GMT · EST</p>
       </div>
     </div>
-    <div class="spec__col reveal">
+    <div class="spec__col" data-anim="scale">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M12 7v5.4l3.4 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
       <div>
         <span class="mono dim">AVAILABILITY</span>
         <p>2 project slots open<br>Booking from next week</p>
       </div>
     </div>
-    <div class="spec__col reveal">
+    <div class="spec__col" data-anim="scale">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 8.5 4.8L12 12.6 3.5 7.8 12 3Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="m3.5 12 8.5 4.8 8.5-4.8M3.5 16.2 12 21l8.5-4.8" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
       <div>
         <span class="mono dim">SERVICES</span>
@@ -134,18 +153,6 @@
     </div>
   </div>
 
-  <div class="hero__bottom">
-    <p class="hero__blurb reveal">
-      We design and build fast, modern websites that make growing brands look
-      expensive — and turn visitors into paying customers.
-    </p>
-    <a href="#contact" class="btn btn--big" data-cursor="let's talk" data-magnetic>
-      <span>START A PROJECT</span>
-      <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5H8M19 5v11" stroke="currentColor" stroke-width="1.6"/></svg>
-    </a>
-  </div>
-
-  <div class="scroll-hint mono">SCROLL <i></i></div>
 </section>
 
 <!-- ══════════════ MARQUEE ══════════════ -->
@@ -169,19 +176,19 @@
   </p>
 
   <div class="phases">
-    <article class="phase reveal" data-cursor="01">
+    <article class="phase" data-anim="scale" data-cursor="01">
       <span class="phase__num mono">01</span>
       <h3>DISCOVER</h3>
       <p>We talk about your business, your customers and what the site actually needs to do. You get a clear scope, timeline and fixed price before anything starts.</p>
       <ul class="phase__tags"><li>STRATEGY CALL</li><li>SCOPE</li><li>FIXED QUOTE</li></ul>
     </article>
-    <article class="phase reveal" data-cursor="02">
+    <article class="phase" data-anim="scale" data-cursor="02">
       <span class="phase__num mono">02</span>
       <h3>DESIGN</h3>
       <p>A custom layout built around your brand — not a recycled template. You review it live, comment directly on the design, and we refine until it feels right.</p>
       <ul class="phase__tags"><li>WIREFRAME</li><li>UI DESIGN</li><li>2 REVISIONS</li></ul>
     </article>
-    <article class="phase reveal" data-cursor="03">
+    <article class="phase" data-anim="scale" data-cursor="03">
       <span class="phase__num mono">03</span>
       <h3>DEVELOP</h3>
       <p>Hand-coded, lightning fast, mobile-perfect and SEO ready. We deploy it, connect your domain, and hand over everything you need to run it yourself.</p>
@@ -196,34 +203,34 @@
     <span class="mono dim"><b>02</b> // PORTFOLIO</span>
     <span class="mono dim">SELECTED 2024 — 2026</span>
   </div>
-  <h2 class="sec-title reveal">RECENT<br>PROJECTS</h2>
+  <h2 class="sec-title" data-anim="clip">RECENT<br>PROJECTS</h2>
 
   <div class="projects" id="projects">
-    <a href="#contact" class="project reveal" data-img="1">
+    <a href="#contact" class="project" data-anim="left" data-img="1">
       <span class="project__idx mono">01</span>
       <span class="project__name">Aurora Studio</span>
       <span class="project__tag mono">BRAND SITE / FRAMER</span>
       <span class="project__arrow">↗</span>
     </a>
-    <a href="#contact" class="project reveal" data-img="2">
+    <a href="#contact" class="project" data-anim="left" data-img="2">
       <span class="project__idx mono">02</span>
       <span class="project__name">Northline Coffee</span>
       <span class="project__tag mono">E‑COMMERCE / SHOPIFY</span>
       <span class="project__arrow">↗</span>
     </a>
-    <a href="#contact" class="project reveal" data-img="3">
+    <a href="#contact" class="project" data-anim="left" data-img="3">
       <span class="project__idx mono">03</span>
       <span class="project__name">Vault Fitness</span>
       <span class="project__tag mono">LANDING PAGE / NEXT.JS</span>
       <span class="project__arrow">↗</span>
     </a>
-    <a href="#contact" class="project reveal" data-img="4">
+    <a href="#contact" class="project" data-anim="left" data-img="4">
       <span class="project__idx mono">04</span>
       <span class="project__name">Mono Ledger</span>
       <span class="project__tag mono">WEB APP / REACT</span>
       <span class="project__arrow">↗</span>
     </a>
-    <a href="#contact" class="project reveal" data-img="5">
+    <a href="#contact" class="project" data-anim="left" data-img="5">
       <span class="project__idx mono">05</span>
       <span class="project__name">Cielo Interiors</span>
       <span class="project__tag mono">PORTFOLIO / WORDPRESS</span>
@@ -242,7 +249,7 @@
   </div>
 
   <div class="about__grid">
-    <h2 class="about__title reveal" data-parallax="0.06">MORE ABOUT<br>THE STUDIO</h2>
+    <h2 class="about__title" data-anim="clip" data-parallax="0.06">MORE ABOUT<br>THE STUDIO</h2>
     <div class="about__body">
       <p class="reveal"><strong>KILN IS A DIGITAL STUDIO BUILT AROUND CLARITY, SPEED AND DESIGN THAT ACTUALLY SELLS.</strong></p>
       <p class="reveal">No agency overhead, no account managers, no endless email chains. You talk directly to the people designing and coding your site — which means faster decisions, sharper work and a price that makes sense for a growing business.</p>
@@ -258,35 +265,35 @@
     <span class="mono dim"><b>04</b> // SERVICES</span>
     <span class="mono dim">FAST DELIVERY</span>
   </div>
-  <h2 class="sec-title reveal">WHAT WE<br>DO</h2>
+  <h2 class="sec-title" data-anim="clip">WHAT WE<br>DO</h2>
   <p class="lead lead--sm reveal">Services crafted to make your brand look established, load instantly and convert better than the competition.</p>
 
   <div class="services__list">
-    <article class="service reveal">
+    <article class="service" data-anim="left">
       <span class="service__num mono">S/01</span>
       <h3>Website Design &amp; Development</h3>
       <p>Custom marketing sites, portfolios and business websites — designed, coded and deployed end to end.</p>
       <span class="service__meta mono">FIGMA · HTML/CSS · REACT · NEXT.JS</span>
     </article>
-    <article class="service reveal">
+    <article class="service" data-anim="left">
       <span class="service__num mono">S/02</span>
       <h3>Landing Pages That Convert</h3>
       <p>High-impact single pages for launches, ads and campaigns — written and structured to drive one clear action.</p>
       <span class="service__meta mono">COPY STRUCTURE · CRO · A/B READY</span>
     </article>
-    <article class="service reveal">
+    <article class="service" data-anim="left">
       <span class="service__num mono">S/03</span>
       <h3>E‑Commerce Stores</h3>
       <p>Storefronts that make products look premium, with painless checkout, payments and inventory built in.</p>
       <span class="service__meta mono">SHOPIFY · WOOCOMMERCE · STRIPE</span>
     </article>
-    <article class="service reveal">
+    <article class="service" data-anim="left">
       <span class="service__num mono">S/04</span>
       <h3>UI/UX &amp; Brand Identity</h3>
       <p>Interfaces, design systems and visual identity that keep every touchpoint of your brand consistent.</p>
       <span class="service__meta mono">DESIGN SYSTEMS · LOGO · GUIDELINES</span>
     </article>
-    <article class="service reveal">
+    <article class="service" data-anim="left">
       <span class="service__num mono">S/05</span>
       <h3>Speed, SEO &amp; Care Plans</h3>
       <p>Core Web Vitals tuning, technical SEO and monthly maintenance so your site keeps earning after launch.</p>
@@ -301,7 +308,7 @@
     <span class="mono dim"><b>05</b> // VOICE OF KILN</span>
     <span class="mono dim">SINCE 2022</span>
   </div>
-  <p class="statement__text reveal" data-parallax="0.05">
+  <p class="statement__text" data-anim="rise" data-parallax="0.05">
     AN INDEPENDENT DESIGN &amp; DEVELOPMENT STUDIO TURNING IDEAS INTO WEBSITES THAT
     <em>LOOK EXPENSIVE, LOAD FAST AND BRING REAL BUSINESS.</em>
   </p>
@@ -314,10 +321,10 @@
     <span class="mono dim">FUN FACTS</span>
   </div>
   <div class="stats__grid">
-    <div class="stat reveal"><span class="stat__num" data-count="40">0</span><span class="stat__plus">+</span><p class="mono">CLIENTS SERVED</p></div>
-    <div class="stat reveal"><span class="stat__num" data-count="4">0</span><span class="stat__plus">+</span><p class="mono">YEARS EXPERIENCE</p></div>
-    <div class="stat reveal"><span class="stat__num" data-count="75">0</span><span class="stat__plus">+</span><p class="mono">PROJECTS SHIPPED</p></div>
-    <div class="stat reveal"><span class="stat__num" data-count="7">0</span><span class="stat__plus">days</span><p class="mono">AVG. DELIVERY</p></div>
+    <div class="stat" data-anim="scale"><span class="stat__num" data-count="40">0</span><span class="stat__plus">+</span><p class="mono">CLIENTS SERVED</p></div>
+    <div class="stat" data-anim="scale"><span class="stat__num" data-count="4">0</span><span class="stat__plus">+</span><p class="mono">YEARS EXPERIENCE</p></div>
+    <div class="stat" data-anim="scale"><span class="stat__num" data-count="75">0</span><span class="stat__plus">+</span><p class="mono">PROJECTS SHIPPED</p></div>
+    <div class="stat" data-anim="scale"><span class="stat__num" data-count="7">0</span><span class="stat__plus">days</span><p class="mono">AVG. DELIVERY</p></div>
   </div>
 </section>
 
@@ -327,12 +334,12 @@
     <span class="mono dim"><b>07</b> // PRICING</span>
     <span class="mono dim">TRANSPARENT · FIXED</span>
   </div>
-  <h2 class="sec-title reveal">PICK YOUR<br>PACKAGE</h2>
+  <h2 class="sec-title" data-anim="clip">PICK YOUR<br>PACKAGE</h2>
   <p class="lead lead--sm reveal">No hourly surprises. Every package is a fixed price agreed before work starts. Need something different? Custom quotes are always welcome.</p>
 
   <div class="plans">
 
-    <article class="plan reveal">
+    <article class="plan" data-anim="scale">
       <div class="plan__top">
         <span class="plan__price">$249</span>
         <h3>STARTER LANDING</h3>
@@ -351,7 +358,7 @@
       <a href="#contact" class="plan__btn" data-magnetic>CHOOSE PLAN</a>
     </article>
 
-    <article class="plan plan--pro reveal">
+    <article class="plan plan--pro" data-anim="scale">
       <span class="plan__badge mono">MOST POPULAR</span>
       <div class="plan__top">
         <span class="plan__price">$599</span>
@@ -373,7 +380,7 @@
       <a href="#contact" class="plan__btn" data-magnetic>CHOOSE PLAN</a>
     </article>
 
-    <article class="plan reveal">
+    <article class="plan" data-anim="scale">
       <div class="plan__top">
         <span class="plan__price">$1199</span>
         <h3>E‑COMMERCE / APP</h3>
@@ -393,7 +400,7 @@
       <a href="#contact" class="plan__btn" data-magnetic>CHOOSE PLAN</a>
     </article>
 
-    <article class="plan reveal">
+    <article class="plan" data-anim="scale">
       <div class="plan__top">
         <span class="plan__price">$149</span>
         <h3>REDESIGN REFRESH</h3>
@@ -410,7 +417,7 @@
       <a href="#contact" class="plan__btn" data-magnetic>CHOOSE PLAN</a>
     </article>
 
-    <article class="plan reveal">
+    <article class="plan" data-anim="scale">
       <div class="plan__top">
         <span class="plan__price">$99<span class="plan__per">/mo</span></span>
         <h3>CARE PLAN</h3>
@@ -428,7 +435,7 @@
       <a href="#contact" class="plan__btn" data-magnetic>CHOOSE PLAN</a>
     </article>
 
-    <article class="plan plan--custom reveal">
+    <article class="plan plan--custom" data-anim="scale">
       <div class="plan__top">
         <span class="plan__price">LET'S<br>TALK</span>
         <h3>CUSTOM PROJECT</h3>
@@ -454,30 +461,30 @@
     <span class="mono dim"><b>08</b> // FAQ</span>
     <span class="mono dim">BEFORE YOU ASK</span>
   </div>
-  <h2 class="sec-title reveal">GOOD TO<br>KNOW</h2>
+  <h2 class="sec-title" data-anim="clip">GOOD TO<br>KNOW</h2>
 
   <div class="faq__list">
-    <details class="faq__item reveal">
+    <details class="faq__item" data-anim="up">
       <summary>How long does a project take?<i></i></summary>
       <p>A landing page usually ships in 3–5 days, a full business website in 7–10 days, and larger stores or apps in 2–4 weeks. You get a firm date in writing before we start.</p>
     </details>
-    <details class="faq__item reveal">
+    <details class="faq__item" data-anim="up">
       <summary>How do payments work?<i></i></summary>
       <p>50% to book your slot and start work, 50% before launch. For monthly care plans it's billed at the start of each month. Bank transfer, UPI, PayPal or Stripe — whatever's easiest for you.</p>
     </details>
-    <details class="faq__item reveal">
+    <details class="faq__item" data-anim="up">
       <summary>Do I need to provide content and images?<i></i></summary>
       <p>Ideally yes — you know your business best. But if you're stuck, we'll help structure the copy and source premium stock imagery so nothing holds up the launch.</p>
     </details>
-    <details class="faq__item reveal">
+    <details class="faq__item" data-anim="up">
       <summary>What if I don't like the design?<i></i></summary>
       <p>You see the design before a single line of code is written, and every package includes revision rounds. Nothing gets built until you're genuinely happy with how it looks.</p>
     </details>
-    <details class="faq__item reveal">
+    <details class="faq__item" data-anim="up">
       <summary>Will I be able to update it myself?<i></i></summary>
       <p>Yes. Business packages ship with an easy editor for text and images, plus a short walkthrough video recorded for your exact site.</p>
     </details>
-    <details class="faq__item reveal">
+    <details class="faq__item" data-anim="up">
       <summary>Do you work with clients outside India?<i></i></summary>
       <p>All the time. Most work happens over email and scheduled calls, and we keep flexible hours to overlap with US, UK and Gulf time zones.</p>
     </details>
@@ -491,7 +498,7 @@
     <span class="mono dim">REPLY WITHIN 24H</span>
   </div>
 
-  <h2 class="contact__title reveal">LET'S WORK<br>TOGETHER</h2>
+  <h2 class="contact__title" data-anim="clip">LET'S WORK<br>TOGETHER</h2>
 
   <div class="contact__grid">
     <form class="form" id="contactForm" novalidate>

@@ -59,19 +59,41 @@
     lastY = y;
   }, { passive: true });
 
-  /* ── SCROLL REVEAL ─────────────────────────────────────── */
+  /* ── SCROLL REVEAL ─────────────────────────────────────
+     Siblings inside a group stagger against each other rather than
+     against document order, so each section animates as a unit. */
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
       e.target.classList.add('in');
       io.unobserve(e.target);
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
 
-  $$('.reveal').forEach((el, i) => {
-    el.style.transitionDelay = `${(i % 4) * 0.08}s`;
+  $$('.reveal, [data-anim]').forEach(el => {
+    const sibs = [...el.parentElement.children].filter(c => c.matches('.reveal, [data-anim]'));
+    el.style.setProperty('--d', `${Math.min(sibs.indexOf(el), 7) * 0.09}s`);
     io.observe(el);
   });
+
+  /* ── SCROLL PROGRESS ───────────────────────────────────── */
+  const progressBar = $('#progress i');
+  if (progressBar) {
+    let pTicking = false;
+    const drawProgress = () => {
+      try {
+        const max = document.documentElement.scrollHeight - innerHeight;
+        progressBar.style.width = `${max > 0 ? (scrollY / max) * 100 : 0}%`;
+      } finally { pTicking = false; }
+    };
+    addEventListener('scroll', () => {
+      if (pTicking) return;
+      pTicking = true;
+      requestAnimationFrame(drawProgress);
+    }, { passive: true });
+    addEventListener('resize', drawProgress, { passive: true });
+    drawProgress();
+  }
 
   /* ── COUNT-UP STATS ────────────────────────────────────── */
   const countIO = new IntersectionObserver((entries) => {
