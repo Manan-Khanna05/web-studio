@@ -6,11 +6,52 @@ serverless backend for the enquiry form.
 Front end is plain HTML/CSS/JS — no build step, no dependencies, no framework.
 
 ```
-index.html        all content / copy
-css/style.css     all styling (brand tokens at the top)
-js/main.js        cursor, menu, parallax, magnetics, counters, form
-api/contact.js    serverless enquiry endpoint (Vercel)
+index.html            all content / copy
+css/style.css         all styling (design tokens at the top)
+js/main.js            cursor, menu, parallax, magnetics, counters, form
+api/contact.js        serverless enquiry endpoint (Vercel)
+assets/bg-skyline.avif  blurred background photograph (34 KB)
 ```
+
+## Design system
+
+Premium glassmorphism over a blurred cinematic background — the Apple
+VisionOS / Linear / Arc visual language.
+
+**Backdrop**, painted back to front:
+
+| Layer | What it does |
+|---|---|
+| `.bg-photo` | Skyline at `blur(30px) saturate(85%) brightness(75%)`, 38s slow zoom, drifts on scroll |
+| `.bg-tint` | Dark gradient + accent wash + vignette so text always reads |
+| `.bg-blobs` | Three drifting coloured light blobs (green / blue / violet) |
+| `.bg-grid` | Dot-matrix + line grid, radially masked |
+| `.bg-noise` | Animated film grain, above content, inert |
+
+**Glass** — every panel uses the same recipe, exposed as tokens:
+
+```css
+background: rgba(255,255,255,.08);
+backdrop-filter: blur(30px) saturate(180%);
+border: 1px solid rgba(255,255,255,.12);
+box-shadow: 0 8px 32px rgba(0,0,0,.25), inset 0 1px rgba(255,255,255,.12);
+border-radius: 28px;
+```
+
+Applied to the navbar pill, hero container, phase/service/stat/pricing
+cards, FAQ items, the contact form, marquee and footer.
+
+**Palette** — `--bg #05070A` · `--accent #00E676` · `--accent-2 #3B82F6` ·
+text white · secondary text `#C9CED6`. Change `--accent` to rebrand.
+
+**Motion** — everything eases on `cubic-bezier(.16,1,.3,1)`.
+
+### Swapping the background image
+
+Drop a new photo at `assets/bg-skyline.avif` (or change the `url()` in
+`.bg-photo`). Any wide, high-contrast image works — the heavy blur means
+resolution barely matters, so keep it small. Landscapes, skylines and
+architecture read best.
 
 ## Run it locally
 
@@ -94,13 +135,22 @@ The same object feeds the image reveal behind the fullscreen menu links.
 | Effect | Where it lives |
 |---|---|
 | Preloader counter → curtain wipe | `.curtain` + `curtain-up` class |
-| Dot-matrix grid + animated grain | `.bg-grid`, `.bg-noise` |
+| Navbar slides down on load | `body.loaded .nav` |
+| Background slow zoom + scroll drift | `.bg-photo`, `data-bgparallax` |
+| Drifting light blobs | `.bg-blobs i` |
 | Custom cursor with contextual labels | `#cursor`, `data-cursor="…"` |
 | Magnetic buttons | `data-magnetic` attribute |
+| Cursor-follow depth on hero cards | `.spec__col`, 10/13/16px |
+| Radial highlight tracking cursor in buttons | `--hx` / `--hy` on `.btn` |
+| Glass shine sweep on pricing hover | `.plan::after` |
 | Parallax drift | `data-parallax="0.06"` attribute |
 | Scroll reveals | `.reveal` class |
 | Count-up stats | `data-count="40"` attribute |
 | Portfolio preview follows cursor | `.project[data-img]` |
+
+Parallax and magnetics write the CSS `translate` property, and hover
+lifts write `transform` — separate properties, so they compose instead of
+overwriting each other.
 
 Everything respects `prefers-reduced-motion`.
 

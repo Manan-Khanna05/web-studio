@@ -119,6 +119,57 @@
     applyParallax();
   }
 
+  /* ── BACKGROUND PARALLAX ───────────────────────────────
+     The blurred skyline drifts a few pixels against the scroll so the
+     glass panels feel like they're floating in front of it. */
+  const bgPhoto = $('[data-bgparallax]');
+  if (bgPhoto && !REDUCED) {
+    let bgTicking = false;
+    const moveBg = () => {
+      try {
+        bgPhoto.style.translate = `0 ${(scrollY * +bgPhoto.dataset.bgparallax).toFixed(1)}px`;
+      } finally { bgTicking = false; }
+    };
+    addEventListener('scroll', () => {
+      if (bgTicking) return;
+      bgTicking = true;
+      requestAnimationFrame(moveBg);
+    }, { passive: true });
+    addEventListener('resize', moveBg, { passive: true });
+    moveBg();
+  }
+
+  /* ── CURSOR-FOLLOW DEPTH ───────────────────────────────
+     Hero glass cards shift 8–15px with the pointer. Uses a CSS var so
+     it composes with the hover lift instead of overwriting it. */
+  if (matchMedia('(hover:hover)').matches && !REDUCED) {
+    const depthEls = $$('.spec__col');
+    const hero = $('.hero');
+    if (hero && depthEls.length) {
+      hero.addEventListener('mousemove', (e) => {
+        const r = hero.getBoundingClientRect();
+        const nx = (e.clientX - r.left) / r.width - 0.5;   // -0.5 … 0.5
+        const ny = (e.clientY - r.top) / r.height - 0.5;
+        depthEls.forEach((el, i) => {
+          const depth = 10 + i * 3;                        // 10 / 13 / 16 px
+          el.style.translate = `${(nx * depth).toFixed(1)}px ${(ny * depth).toFixed(1)}px`;
+        });
+      });
+      hero.addEventListener('mouseleave', () => {
+        depthEls.forEach(el => { el.style.translate = '0px 0px'; });
+      });
+    }
+
+    /* soft radial highlight tracking the cursor inside buttons */
+    $$('.btn, .plan__btn').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        btn.style.setProperty('--hx', `${e.clientX - r.left}px`);
+        btn.style.setProperty('--hy', `${e.clientY - r.top}px`);
+      });
+    });
+  }
+
   /* ── MAGNETIC BUTTONS ──────────────────────────────────
      Within range the element is pulled toward the cursor. */
   if (matchMedia('(hover:hover)').matches && !REDUCED) {
