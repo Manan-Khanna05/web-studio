@@ -54,10 +54,11 @@ text white · secondary text `#C9CED6`. Change `--accent` to rebrand.
 ### Swapping the background image
 
 Drop a new photo at `assets/hero-city.avif` (or change the `url()` in
-`.hero__photo`). **Use at least 1920px wide** — the photo is not blurred,
-so a small source will look soft when stretched across the hero. The photo stays sharp, so use something reasonably crisp — but it sits
-behind a dark gradient, so 1600px wide is plenty. Landscapes, skylines and
-architecture read best.
+`.hero__photo`). **Use at least 1920px wide.** The photo is deliberately
+not blurred, so a small source gets stretched and looks soft — the current
+`hero-city.avif` is only 740×491, which is the main reason the hero still
+reads as fuzzy on a large screen. Landscapes, skylines and architecture
+read best.
 
 ## Run it locally
 
