@@ -1,13 +1,15 @@
 /* ════════════════════════════════════════════════════════════
-   MANAN — interactions
+   KILN STUDIO — interactions
    ════════════════════════════════════════════════════════════ */
 (() => {
   'use strict';
 
   const $  = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── PRELOADER ─────────────────────────────────────────── */
+  /* ── PRELOADER → CURTAIN REVEAL ────────────────────────
+     Counter fills, preloader fades, then five panels wipe upward. */
   const pre = $('#preloader'), preCount = $('#preCount'), preBar = $('#preBar');
   let n = 0;
   const tick = setInterval(() => {
@@ -18,8 +20,9 @@
       clearInterval(tick);
       setTimeout(() => {
         pre.classList.add('done');
-        document.body.classList.add('loaded');
-      }, 320);
+        document.body.classList.add('curtain-up');
+        setTimeout(() => document.body.classList.add('loaded'), 260);
+      }, 300);
     }
   }, 110);
 
@@ -87,6 +90,55 @@
   }, { threshold: 0.5 });
   $$('[data-count]').forEach(el => countIO.observe(el));
 
+  /* ── PARALLAX ──────────────────────────────────────────
+     Elements drift against the scroll at their own rate. */
+  const paraEls = $$('[data-parallax]');
+  if (paraEls.length && !REDUCED) {
+    let ticking = false;
+    const applyParallax = () => {
+      try {
+        const vh = innerHeight;
+        paraEls.forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.bottom < -vh || r.top > vh * 2) return;    // offscreen, skip
+          const mid = r.top + r.height / 2 - vh / 2;
+          /* `translate` is its own property, so this never fights the
+             `transform` that .reveal uses for its entrance animation. */
+          el.style.translate = `0 ${(-mid * +el.dataset.parallax).toFixed(1)}px`;
+        });
+      } finally {
+        ticking = false;   // never let one bad frame wedge the handler
+      }
+    };
+    addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(applyParallax);
+    }, { passive: true });
+    addEventListener('resize', applyParallax, { passive: true });
+    applyParallax();
+  }
+
+  /* ── MAGNETIC BUTTONS ──────────────────────────────────
+     Within range the element is pulled toward the cursor. */
+  if (matchMedia('(hover:hover)').matches && !REDUCED) {
+    $$('[data-magnetic]').forEach(el => {
+      const STRENGTH = 0.32, RANGE = 90;
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2);
+        const dy = e.clientY - (r.top + r.height / 2);
+        if (Math.hypot(dx, dy) > r.width / 2 + RANGE) return;
+        el.classList.add('is-pulled');
+        el.style.translate = `${(dx * STRENGTH).toFixed(1)}px ${(dy * STRENGTH).toFixed(1)}px`;
+      });
+      el.addEventListener('mouseleave', () => {
+        el.classList.remove('is-pulled');
+        el.style.translate = '0px 0px';
+      });
+    });
+  }
+
   /* ── CUSTOM CURSOR ─────────────────────────────────────── */
   const cursor = $('#cursor'), cursorLabel = $('#cursorLabel');
   if (matchMedia('(hover:hover)').matches) {
@@ -111,9 +163,9 @@
     });
   }
 
-  /* ── PROJECT HOVER PREVIEW ─────────────────────────────
+  /* ── IMAGE PREVIEWS ────────────────────────────────────
      Swap these gradients for real screenshots:
-     project.dataset.img → set to 'assets/work-1.jpg' and use url(...)  */
+     1: 'url(assets/work-1.jpg)'  etc. */
   const previews = {
     1: 'linear-gradient(135deg,#1b2a4a,#4a3f8f 50%,#d3fd50)',
     2: 'linear-gradient(135deg,#3a2416,#a3653a 55%,#f2d0a4)',
@@ -121,6 +173,8 @@
     4: 'linear-gradient(135deg,#06231e,#0d6157 55%,#7ef2d0)',
     5: 'linear-gradient(135deg,#2b1b2e,#7a4a6d 55%,#f4c9df)'
   };
+
+  /* portfolio list → preview follows the cursor */
   const prev = $('#projPreview'), prevInner = $('.proj-preview__inner');
   $$('.project').forEach(p => {
     p.addEventListener('mouseenter', () => {
@@ -134,19 +188,44 @@
     prev.style.top  = e.clientY + 'px';
   }, { passive: true });
 
+  /* menu links → image fades in behind the type */
+  const menuMedia = $('#menuMedia'), menuMediaIn = $('.menu__media-in');
+  links.forEach(l => {
+    l.addEventListener('mouseenter', () => {
+      menuMediaIn.style.backgroundImage = previews[l.dataset.reveal] || previews[1];
+      menuMedia.classList.add('show');
+    });
+    l.addEventListener('mouseleave', () => menuMedia.classList.remove('show'));
+  });
+
   /* ── FAQ: only one open at a time ──────────────────────── */
   const items = $$('.faq__item');
   items.forEach(d => d.addEventListener('toggle', () => {
     if (d.open) items.forEach(o => { if (o !== d) o.open = false; });
   }));
 
-  /* ── CONTACT FORM ──────────────────────────────────────
-     No backend yet — it opens the visitor's mail client with a
-     pre-filled enquiry. To collect submissions automatically,
-     sign up at formspree.io / getform.io and replace the block
-     marked below with a fetch() to your endpoint.            */
-  const form = $('#contactForm'), note = $('#formNote');
-  form.addEventListener('submit', (e) => {
+  /* ── CONTACT FORM → /api/contact ───────────────────────
+     Posts to the serverless endpoint. If the backend has no mail
+     provider configured yet (503), falls back to opening the
+     visitor's mail app so no enquiry is ever lost. */
+  const MAILTO = 'itsmanan.dev@gmail.com';
+  const form = $('#contactForm'), note = $('#formNote'), submitBtn = $('#submitBtn');
+
+  const say = (msg, bad) => {
+    note.textContent = msg;
+    note.style.color = bad ? '#ff5a52' : '';
+  };
+
+  const mailtoFallback = (d) => {
+    const subject = encodeURIComponent(`New project enquiry - ${d.name}`);
+    const body = encodeURIComponent(
+      `Name: ${d.name}\nEmail: ${d.email}\nBudget: ${d.budget}\n\n${d.message}`
+    );
+    window.location.href = `mailto:${MAILTO}?subject=${subject}&body=${body}`;
+    say('OPENING YOUR MAIL APP — HIT SEND AND WE WILL REPLY WITHIN 24 HOURS.');
+  };
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
     let ok = true;
@@ -158,23 +237,34 @@
       if (bad) ok = false;
     });
 
-    if (!ok) {
-      note.textContent = '⚠ PLEASE FILL IN THE HIGHLIGHTED FIELDS';
-      note.style.color = '#ff5a52';
-      return;
+    if (!ok) return say('PLEASE FILL IN THE HIGHLIGHTED FIELDS', true);
+
+    submitBtn.disabled = true;
+    say('SENDING…');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        say('THANKS — YOUR ENQUIRY IS IN. WE REPLY WITHIN 24 HOURS.');
+        form.reset();
+      } else if (res.status === 429) {
+        const j = await res.json().catch(() => ({}));
+        say(j.error || 'TOO MANY ENQUIRIES — PLEASE EMAIL US DIRECTLY.', true);
+      } else {
+        /* 503 = mail provider not configured, 404 = running as plain
+           static files with no serverless runtime. Both → mailto. */
+        mailtoFallback(data);
+      }
+    } catch {
+      mailtoFallback(data);          // offline or network blocked
+    } finally {
+      submitBtn.disabled = false;
     }
-
-    /* ── replace from here for a real backend ── */
-    const subject = encodeURIComponent(`New project enquiry — ${data.name}`);
-    const body = encodeURIComponent(
-      `Name: ${data.name}\nEmail: ${data.email}\nBudget: ${data.budget}\n\n${data.message}`
-    );
-    window.location.href = `mailto:itsmanan.dev@gmail.com?subject=${subject}&body=${body}`;
-    /* ── to here ── */
-
-    note.style.color = '';
-    note.textContent = '✓ THANKS — OPENING YOUR MAIL APP. I REPLY WITHIN 24 HOURS.';
-    form.reset();
   });
 
   /* ── BACK TO TOP ───────────────────────────────────────── */
